@@ -14,12 +14,14 @@ func main() {
 	inDB := &controllers.InDB{DB: db}
 
 	router := gin.Default()
+	// router := gin.New()
+	// router.Use(gin.Logger())
 
-	router.GET("/user/:Id", inDB.GetUserById)
+	router.GET("/user/:id", inDB.GetUserById)
 	router.GET("/users", inDB.GetAllUsers)
-	router.POST("/user/add", inDB.CreateUser)
-	router.PUT("/user/update", inDB.UpdateUser)
-	router.DELETE("/user/delete/:Id", inDB.DeleteUser)
+	router.POST("/user", inDB.CreateUser)
+	router.PUT("/user", inDB.UpdateUser)
+	router.DELETE("/user/:id", inDB.DeleteUser)
 	fmt.Println("Starting on localhost:8080")
 	router.Run(":3306")
 }
