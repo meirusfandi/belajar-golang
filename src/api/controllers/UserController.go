@@ -3,7 +3,7 @@ package controllers
 import (
 	"net/http"
 
-	"../models"
+	"api/models"
 
 	"github.com/gin-gonic/gin"
 )
@@ -14,8 +14,8 @@ func (idb *InDB) GetUserById(c *gin.Context) {
 		user   models.User
 		result gin.H
 	)
-	id := c.Param("id")
-	err := idb.DB.Where("id = ?", id).First(&user).Error
+	id := c.Param("Id")
+	err := idb.DB.Where("Id = ?", id).First(&user).Error
 	if err != nil {
 		result = gin.H{
 			"result": err.Error(),
@@ -63,9 +63,9 @@ func (idb *InDB) CreateUser(c *gin.Context) {
 	username := c.PostForm("username")
 	password := c.PostForm("password")
 	name := c.PostForm("name")
-	user.userame = username
-	user.password = password
-	user.name = name
+	user.Username = username
+	user.Password = password
+	user.Name = name
 	idb.DB.Create(&user)
 	result = gin.H{
 		"result": user,
@@ -75,7 +75,7 @@ func (idb *InDB) CreateUser(c *gin.Context) {
 
 // update data with {id} as query
 func (idb *InDB) UpdateUser(c *gin.Context) {
-	id := c.Query("id")
+	id := c.Query("Id")
 	username := c.PostForm("username")
 	password := c.PostForm("password")
 	name := c.PostForm("name")
@@ -91,9 +91,9 @@ func (idb *InDB) UpdateUser(c *gin.Context) {
 			"result": "data not found",
 		}
 	}
-	newUser.userame = username
-	newUser.password = password
-	newUser.name = name
+	newUser.Username = username
+	newUser.Password = password
+	newUser.Name = name
 	err = idb.DB.Model(&user).Updates(newUser).Error
 	if err != nil {
 		result = gin.H{
@@ -113,7 +113,7 @@ func (idb *InDB) DeleteUser(c *gin.Context) {
 		user   models.User
 		result gin.H
 	)
-	id := c.Param("id")
+	id := c.Param("Id")
 	err := idb.DB.First(&user, id).Error
 	if err != nil {
 		result = gin.H{
