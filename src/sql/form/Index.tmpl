@@ -1,0 +1,30 @@
+{{ define "Index" }}
+  {{ template "Header" }}
+    {{ template "Menu"  }}
+    <h2> Registered </h2>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Userame</th>
+          <th scope="col">Password</th>
+          <th scope="col">Name</th>
+          <th colspan="3" scope="col"><center>Action</center></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{ range . }}
+          <tr>
+            <th scope="row">{{ .Id }}</th>
+            <td>{{ .Username }} </td>
+            <td>{{ .Password }} </td> 
+            <td> {{ .Name }} </td>
+            <td><a href="/show?id={{ .Id }}" class="btn btn-primary">View</a></td>
+            <td><a href="/edit?id={{ .Id }}" class="btn btn-warning">Edit</a></td>
+            <td><a href="/delete?id={{ .Id }}" class="btn btn-danger">Delete</a></td>
+          </tr>
+        {{ end }}
+      </tbody>
+    </table>
+  {{ template "Footer" }}
+{{ end }}
